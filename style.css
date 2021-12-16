@@ -1,7 +1,7 @@
 body{
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: max-content 200%;
+    grid-template-rows: max-content 100%;
     font-family: 'VT323', monospace;
     font-size: 50px;
 }
@@ -23,10 +23,19 @@ header{
 
 .game{
 
-width: 400px;
-height: 300px;
+width: 800px;
+height: 500px;
 background: url("img/blub.png") ;
 animation: scroll 3s linear infinite;
+position: relative;
+
+}
+
+.game .player{
+
+    position: absolute;
+    margin-left: -20px;
+    width: 40px;
 
 }
 
