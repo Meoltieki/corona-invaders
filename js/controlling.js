@@ -5,49 +5,101 @@ const KEY_CODE_UP = 38;
 const KEY_CODE_DOWN = 40;
 
 
+let canvasHeight, canvasWidth;
+let ship;
+let shipX, shipY;
+let isShooted; 
+let fire;
+let fireX, fireY;
 
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 500;
-const PLAYER_WIDTH = 20;
-const PLAYER_HEIGHT = 5;
+let scrollspeed = 2; ///hintergrund scrollen lassen tips auf: https://editor.p5js.org/chjno/sketches/ByZlypKWM
 
+function preload() {
 
-
-const GAME_STATE = {
-
-    playerX: 0,
-    playerY: 0,
+    ship = loadImage("img/ship.png");
+    fire = loadImage ("img/fire14.png");
+    bg = loadImage("img/space.jpg")
 
 }
 
 
+function setup() {
+    canvasHeight =  windowHeight - 105;
+    canvasWidth = windowWidth - 25;
+  
+
+    createCanvas(canvasWidth, canvasHeight);
+    isShooted = false;
+}
 
 
-function createPlayer($container){
+function draw() {
 
-    GAME_STATE.playerX = GAME_WIDTH /2;
-    GAME_STATE.playerY = GAME_HEIGHT -50;
+    background(bg);
+    setShipPosition(); 
+    drawShip(); 
 
-    const $player = document.createElement("img");
-    $player.src = "img/shipy.png";
-    $player.className = "player";
-    $container.appendChild($player);
-    setPosition($player, GAME_STATE.playerX, GAME_STATE.playerY);
 
     
-}
-
-function init() {
-
-    const $container = document.querySelector(".game");
-    createPlayer($container);
+    if (isShooted == true) {
+        mouseReleased();
+        
+    }
 
 }
 
 
-init ();
+function setFirePosition() {
 
-window.addEventListener("keydown", onKeyDown);
-window.addEventListener("keyup", onKeyUp);
-window.requestAnimationFrame(update);
+    fireX = shipX + 33;
+    fireY = canvasHeight - 110;
+
+    image (fire, fireX, fireY);
+}
+
+
+
+function setShipPosition() {
+    shipX = mouseX;
+    shipY = mouseY;
+
+    if (shipY < 0) {
+        shipY = 0;     
+    } else if (shipY > canvasHeight - 80) {
+        shipY = canvasHeight - 80;
+    }
+
+    if (shipX < 0 ) {
+
+        shipX = 0;
+    }else if (shipX > canvasWidth - 80) {
+        shipX = canvasWidth - 80;
+    }
+}
+
+
+
+function drawShip() {
+    image(ship ,shipX, shipY, 80, 80);
+ 
+}
+
+function shoot() {
+ 
+
+    if (isShooted = true) {
+
+        setFirePosition();
+        
+    }
+
+}
+
+
+
+function mouseReleased() {
+    isShooted = true;
+    shoot();
+    console.log(isShooted);
+  }
