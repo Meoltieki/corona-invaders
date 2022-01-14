@@ -13,7 +13,9 @@ let fire;
 let fireX, fireY;
 
 
-let scrollspeed = 2; ///hintergrund scrollen lassen tips auf: https://editor.p5js.org/chjno/sketches/ByZlypKWM
+
+
+
 
 function preload() {
 
@@ -39,25 +41,21 @@ function draw() {
     background(bg);
     setShipPosition(); 
     drawShip(); 
+    shoot( fireY - 5);
+}
 
 
-    
+
+
+function move () {
+  
     if (isShooted == true) {
         mouseReleased();
+        fireY = fireY -5;
         
     }
 
 }
-
-
-function setFirePosition() {
-
-    fireX = shipX + 33;
-    fireY = canvasHeight - 110;
-
-    image (fire, fireX, fireY);
-}
-
 
 
 function setShipPosition() {
@@ -86,13 +84,14 @@ function drawShip() {
 }
 
 function shoot() {
- 
 
-    if (isShooted = true) {
+    if (isShooted == true) {
 
-        setFirePosition();
-        
-    }
+        fireY = shipY - 30;
+        fireX = shipX + 33;
+
+        image (fire, fireX, fireY);
+    } 
 
 }
 
